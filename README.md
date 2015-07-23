@@ -1,8 +1,6 @@
 # ApiResource
+Makes building data-driven APIs in Rails a breeze by providing an easy to use DSL for declaring API resources.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/api_resource`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
 
 ## Installation
 
@@ -16,14 +14,37 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install api_resource
-
 ## Usage
+Once you have ApiResource installed, declare your model as an API
+resource model:
+
+```ruby
+# app/models/product.rb
+
+class Product < ActiveRecord::Base
+  include ApiResource
+end
+```
 
 ### Filter Params
-TODO: Add FilterParams usage instruction
+Filter params provide a clean and easy way to add request-based
+filtering of your active record models:
+
+```ruby
+# app/controllers/products_controller.rb
+
+class ProductsController < ApplicationController
+  def index
+    @products = Product.filter(filter_params)
+  end
+
+  protected
+
+  def filter_params
+    params.slice(:active, :price, :code)
+  end
+end
+```
 
 ## Development
 
@@ -33,7 +54,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/api_resource. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/michaelkelly322/api_resource. Guidelines and suggestion can be found in our [CONTRIBUTE.md file](https://github.com/michaelkelly322/api_resource/blob/master/CONTRIBUTE.md). This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License
