@@ -1,4 +1,4 @@
-# ApiResource
+# ApiMonkey
 Makes building data-driven APIs in Rails a breeze by providing an easy to use DSL for declaring API resources.
 
 
@@ -7,7 +7,7 @@ Makes building data-driven APIs in Rails a breeze by providing an easy to use DS
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'api_resource'
+gem 'api_monkey'
 ```
 
 And then execute:
@@ -15,14 +15,13 @@ And then execute:
     $ bundle
 
 ## Usage
-Once you have ApiResource installed, declare your model as an API
-resource model:
+Once you have ApiMonkey installed, declare your model as an ApiMonkey model:
 
 ```ruby
 # app/models/product.rb
 
 class Product < ActiveRecord::Base
-  include ApiResource
+  include ApiMonkey
 end
 ```
 
@@ -54,7 +53,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/michaelkelly322/api_resource. Guidelines and suggestion can be found in our [CONTRIBUTE.md file](https://github.com/michaelkelly322/api_resource/blob/master/CONTRIBUTE.md). This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/michaelkelly322/api_resource. Guidelines and suggestion can be found in our [CONTRIBUTE.md file](https://github.com/michaelkelly322/api_monkey/blob/master/CONTRIBUTE.md). This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License

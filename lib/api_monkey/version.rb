@@ -1,3 +1,3 @@
-module ApiResource
+module ApiMonkey
   VERSION = "0.0.1"
 end

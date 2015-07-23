@@ -1,4 +1,4 @@
-module ApiResource::FilterScopes
+module ApiMonkey::FilterScopes
   extend ActiveSupport::Concern
 
   included do
