@@ -1,8 +1,6 @@
 require 'spec_helper'
 
-class FooModel
-  include ApiMonkey::Filterable
-end
+FooModel.include ApiMonkey::Filterable
 
 describe 'Filterable Concern' do
   it 'should provide the filter method' do
