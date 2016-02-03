@@ -1,3 +1,5 @@
+require 'active_support/concern'
+
 require "api_monkey/version"
 require "api_monkey/filterable"
 require "api_monkey/filter_scopes"
