@@ -60,7 +60,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/michae
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/michaelkelly322/api_monkey/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
