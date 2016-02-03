@@ -13,6 +13,8 @@ module ApiMonkey::FilterScopes
     # Define filter methods
     column_names.map do |field_name|
       define_singleton_method "filter_#{field_name}" do |param|
+        return where() if param.nil?
+
         if param.is_a? Hash
           where(*process_hash_params(field_name, param))
         else

@@ -21,6 +21,13 @@ describe 'FilterScopes Concern' do
         FooModel.filter_amount('gt' => 0, 'lt' => 5)
       end
     end
+
+    context 'with a nil value' do
+      it 'should return a full scope set' do
+        expect(FooModel).to receive(:where).with(no_args)
+        FooModel.filter_amount(nil)
+      end
+    end
   end
 
   describe '#filter_args' do
