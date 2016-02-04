@@ -27,23 +27,100 @@ end
 
 ### Filter Params
 Filter params provide a clean and easy way to add request-based
-filtering of your active record models:
+filtering of your active record models.  To use filter params, ApiMonkey
+expects the parameters send to rails to resolve like this:
+
+```ruby
+# http://my.domain/products?filter[price]=200
+
+{
+  filter: {
+    price: 200
+  }
+}
+```
+This would filter our Product query to only those with `price = 200`
+
+More complex filters can be applied using an operator shorthand that
+allows for equality and comparison operators.  The list of possible
+operators are:
+
+|SQL Operator|Operator Shorthand|
+|---|---|
+|=|eq|
+|>|gt|
+|<|lt|
+|<=|leq|
+|>=|geq|
+
+To use these, just change the concrete value for `price` in the above
+hash to it's own hash using the operators as keys:
+
+```ruby
+# http://my.domain/products?filter[price[gt]]=200
+
+{
+  filter: {
+    price: {
+      'gt' => 200
+    }
+  }
+}
+```
+
+Or:
+
+```ruby
+# http://my.domain/products?filter[price[gt]]=200&filter[price[leq]]=350
+
+{
+  filter: {
+    price: {
+      'gt' => 200,
+      'leq' => 350
+    }
+  }
+}
+```
+
+To use ApiMonkey in an exisitng Rails app, you have to include the ApiMonkey module in your model like this:
+
+```ruby
+class Product < ActiveRecord::Base
+  include ApiMonkey
+end
+```
+
+This will create all the necessary filtering methods that will be used
+in your controller.  Next we want to add the filter to our controller. Use a methodology similar to
+strong parameters.  We recommend using a controller method like this:
 
 ```ruby
 # app/controllers/products_controller.rb
 
 class ProductsController < ApplicationController
   def index
-    @products = Product.filter(filter_params)
+    @products = if params[:filter]
+                  Product.filter(filter_params)
+                else
+                  Product.all
   end
 
   protected
 
   def filter_params
-    params.slice(:active, :price, :code)
+    params.require(:filter).permit(Product.filter_params)
   end
 end
 ```
+
+`Model.filter_params` is a simple hash so it supports methods like
+`include` and `except` to help control the fields that can be filtered
+against.
+`filter` is designed so that passing either `nil` or `{}` to it will
+produce an empty set (`where(nil)`). Therefore, you should ensure that
+filter exists as a key in `params`. Passing `nil` to one of the
+`filter_xxx` will result in a `where(xxx: nil)`.
 
 ## Development
 
