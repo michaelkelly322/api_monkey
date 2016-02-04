@@ -34,5 +34,13 @@ module ApiMonkey::FilterScopes
 
       [predicates.join(' AND '), *values]
     end
+
+    def self.filter_params
+      {}.tap do |h|
+        column_names.each do |field_name|
+          h[field_name.to_sym] = OPERANDS.keys.map &:to_sym
+        end
+      end
+    end
   end
 end

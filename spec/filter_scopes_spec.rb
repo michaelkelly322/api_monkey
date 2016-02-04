@@ -7,6 +7,20 @@ describe 'FilterScopes Concern' do
     expect(FooModel).to respond_to :filter_amount
   end
 
+  it 'should provide a method to build a strong paramter param' do
+    expect(FooModel).to respond_to :filter_params
+  end
+
+  describe '#filter_params' do
+    it 'should build a hash with a key for each column' do
+      expect(FooModel.filter_params.keys).to eq [:amount]
+    end
+
+    it 'should create the list of permitted operations for each column key' do
+      expect(FooModel.filter_params[:amount]).to eq [:eq, :gt, :lt, :geq, :leq]
+    end
+  end
+
   describe '#filter_xxx' do
     context 'with simple predicate' do
       it 'should call where with a default equality predicate' do
