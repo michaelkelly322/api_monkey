@@ -1,15 +1,15 @@
 module ApiMonkey::FilterScopes
   extend ActiveSupport::Concern
 
-  included do
-    OPERANDS = {
-      'eq' => '=',
-      'gt' => '>',
-      'lt' => '<',
-      'geq' => '>=',
-      'leq' => '<=',
-    }.freeze
+  OPERANDS = {
+    'eq' => '=',
+    'gt' => '>',
+    'lt' => '<',
+    'geq' => '>=',
+    'leq' => '<=',
+  }.freeze
 
+  included do
     # Define filter methods
     column_names.map do |field_name|
       define_singleton_method "filter_#{field_name}" do |param|
