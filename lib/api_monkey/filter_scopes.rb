@@ -22,7 +22,14 @@ module ApiMonkey::FilterScopes
     end
 
     def self.filter_args(field, value, op)
-      ["#{field} #{OPERANDS[op]} ?", value]
+      # I want to replace this right here...use polymorphism to build this string
+      # something like Operand.lookup(op).query_for(value) which would ultimately
+      # call `where` or `join().where` in the case of relationship filtering
+      if op == 'in'
+        ["#{field} in (?)", value]
+      else
+        ["#{field} #{OPERANDS[op]} ?", value]
+      end
     end
 
     def self.process_hash_params(field, param)
