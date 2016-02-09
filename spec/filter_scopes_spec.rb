@@ -47,6 +47,10 @@ describe 'FilterScopes Concern' do
     it 'includes the value for the associated predicate' do
       expect(FooModel.filter_args('amount', 0, 'eq')[1]).to eq 0
     end
+
+    it 'includes () for `in` queries' do
+      expect(FooModel.filter_args('amount', [0, 5, 10], 'in')).to eq ['amount in (?)', [0,5,10] ]
+    end
   end
 
   describe '#process_hash_params' do
