@@ -7,6 +7,10 @@ describe 'FilterScopes Concern' do
     expect(FooModel).to respond_to :filter_amount
   end
 
+  it 'should provide a filter_related method for each relationship' do
+    expect(FooModel).to respond_to :filter_related
+  end
+
   it 'should provide a method to build a strong paramter param' do
     expect(FooModel).to respond_to :filter_params
   end
@@ -35,6 +39,19 @@ describe 'FilterScopes Concern' do
         FooModel.filter_amount('gt' => 0, 'lt' => 5)
       end
     end
+  end
+
+  describe 'filter_related' do
+    it 'should call includes with relation name' do
+      expect(FooModel).to receive(:includes).with('products').and_return(FooModel)
+      FooModel.filter_related('product.name', { 'eq' => 'foo' })
+    end
+
+    it 'should call where with the relational query' do
+      expect(FooModel).to receive(:where).with('products.name = ?', 'foo')
+      FooModel.filter_related('product.name', { 'eq' => 'foo' })
+    end
+
   end
 
   describe '#filter_args' do

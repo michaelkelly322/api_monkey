@@ -1,4 +1,5 @@
 require 'active_support/concern'
+require 'active_support/inflector'
 
 require "api_monkey/version"
 require "api_monkey/filterable"

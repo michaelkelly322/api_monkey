@@ -21,10 +21,18 @@ module ApiMonkey::FilterScopes
       end
     end
 
+    def self.filter_related(key, value)
+      table, field = key.split('.')
+      if value.is_a? Hash
+        includes(table.tableize).where(*process_hash_params("#{table.tableize}.#{field}", value))
+      else
+        includes(table.tableize).where(*filter_args("#{table.tableize}.#{field}", value, 'eq'))
+      end
+    end
+
     def self.filter_args(field, value, op)
       # I want to replace this right here...use polymorphism to build this string
-      # something like Operand.lookup(op).query_for(value) which would ultimately
-      # call `where` or `join().where` in the case of relationship filtering
+      # something like Operand.lookup(op).query_params_for(value)
       if op == 'in'
         ["#{field} in (?)", value]
       else
@@ -35,16 +43,6 @@ module ApiMonkey::FilterScopes
     def self.process_hash_params(field, param)
       predicates, values = [],[]
       param.keys.each do |k|
-        # TODO: in this situation we may have a relationship's field
-        # we need to determine how this is going to be represented
-        # in the URL and parameters that `filter` is expecting
-        # I think that we can get away with '.' in the fieldname param,
-        # The main worry was that HashWithIndifferentAccess might not support
-        # this since '.' is not supported in symbols, we'll try and see what the
-        # hell happens LOL
-        # confirmed, using `relation.field` as the field param should work if we
-        # just pivot it using the existance of '.' in the name, use the first to
-        # construct the join/include statement and the query string
         predicates << filter_args(field, param[k], k)[0]
         values << filter_args(field, param[k], k)[1]
       end

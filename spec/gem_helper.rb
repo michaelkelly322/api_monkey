@@ -6,6 +6,10 @@ class FooModel
   end
 
   def self.where(*args)
-    nil
+    FooModel
+  end
+
+  def self.includes(*args)
+    FooModel
   end
 end
