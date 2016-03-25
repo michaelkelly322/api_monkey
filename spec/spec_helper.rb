@@ -1,6 +1,9 @@
 require 'bundler/setup'
 Bundler.setup
 
+require 'codeclimate-test-reporter'
+CodeClimate::TestReporter.start
+
 require 'api_monkey'
 
 RSpec.configure do |config|
