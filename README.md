@@ -1,6 +1,10 @@
 # ApiMonkey
 Makes building data-driven APIs in Rails a breeze by providing an easy to use DSL for declaring API resources.
 
+[ ![Codeship Status for thebadmonkeydev/api_monkey](https://img.shields.io/codeship/4e0f5230-d46d-0133-21d4-0af10aec3b5e/master.svg)](https://codeship.com/projects/142421)
+[![Code Climate](https://codeclimate.com/github/thebadmonkeydev/api_monkey/badges/gpa.svg)](https://codeclimate.com/github/thebadmonkeydev/api_monkey)
+[![Test Coverage](https://codeclimate.com/github/thebadmonkeydev/api_monkey/badges/coverage.svg)](https://codeclimate.com/github/thebadmonkeydev/api_monkey/coverage)
+[![Issue Count](https://codeclimate.com/github/thebadmonkeydev/api_monkey/badges/issue_count.svg)](https://codeclimate.com/github/thebadmonkeydev/api_monkey)
 
 ## Installation
 
