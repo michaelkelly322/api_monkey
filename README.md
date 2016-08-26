@@ -1,3 +1,5 @@
+******ApiMonkey is undergoing a major overhaul for version 1.0.0******
+
 # ApiMonkey
 Makes building data-driven APIs in Rails a breeze by providing an easy to use DSL for declaring API resources.
 
